@@ -26,5 +26,5 @@ export default defineConfig({
       transformMixedEsModules: true,
     }
   },
-  assetsInclude: ['**/*.png'],
+  publicDir: "public"
 })
