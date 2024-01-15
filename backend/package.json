@@ -1,0 +1,24 @@
+{
+  "name": "blockchain-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@binance/connector": "^3.1.0",
+    "async": "^3.2.5",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "nodemon": "^3.0.2",
+    "request": "^2.88.2",
+    "socket.io": "^4.7.3",
+    "ws": "^8.16.0"
+  }
+}

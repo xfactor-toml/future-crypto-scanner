@@ -1,0 +1,20 @@
+.character-container {
+    display: flex;
+    height: 50px;
+    overflow: hidden;
+  }
+  
+  .moving-character {
+    animation: moveLeftRight 3s linear infinite;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+  
+  @keyframes moveLeftRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
