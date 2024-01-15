@@ -3,7 +3,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { binanceCryptoIcons } from 'binance-icons';
 import io from'socket.io-client';
-const socket = io.connect('http://localhost:4000');
+const socket = io.connect(`${window.location.hostname}:4000`);
 
 function Long() {
   const [data, setData] = useState([]);

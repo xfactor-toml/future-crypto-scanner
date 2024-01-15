@@ -6,7 +6,7 @@ import ShortSignal from '../partials/dashboard/ShortSignal';
 import HotSignal from '../partials/dashboard/HotSignal';
 import MarqueeNav  from '../partials/MarqueeNav';
 import io from'socket.io-client';
-const socket = io.connect('http://localhost:4000');
+const socket = io.connect(`${window.location.hostname}:4000`);
 
 function Dashboard() {
   const [long_data, setData1] = useState([]);
