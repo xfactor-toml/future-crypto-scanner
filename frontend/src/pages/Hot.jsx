@@ -86,7 +86,7 @@ function Hot() {
                       }{item.symbol}
                     </li>
                     <li key={item} className="text-center text-slate-300">{item.price}</li>
-                    <li key={item} className="text-center font-semibold text-emerald-500 ">{item._3minchange}</li>
+                    <li key={item} className="text-center font-semibold text-emerald-500 ">{(item._3minchange > 0)?<span className='text-emerald-500'>{item._3minchange} %</span>:<span className='text-red-500'>{item._3minchange} %</span>}</li>
                     <li key={item} className="text-center text-slate-300">{item._1hHige}</li>
                     <li key={item} className="text-center text-slate-300">{item._1hLow}</li>
                     <li key={item} className="text-center text-slate-300 font-semibold ">
