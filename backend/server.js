@@ -14,6 +14,7 @@ setInterval(() => {
 exports = module.exports = server = (io) => {
     io.on('connection', (socket) => {
         console.log(`--- A socket ${socket.id} connected! ---`);
+        
         socket.emit('send_token', result);
         setInterval(() => {
             socket.emit('send_token', result);
