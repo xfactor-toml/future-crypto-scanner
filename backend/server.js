@@ -3,13 +3,13 @@ const controller = require('./controller/controller');
 let result;
 const getData = (data) => {
     result = data;
-    console.log(result);
 }
 
 controller.getTickerPriceForSocket(getData);
 setInterval(() => {
     controller.getTickerPriceForSocket(getData);
-}, 30000);
+}, 15000);
+
 
 exports = module.exports = server = (io) => {
     io.on('connection', (socket) => {
@@ -19,6 +19,10 @@ exports = module.exports = server = (io) => {
         setInterval(() => {
             socket.emit('send_token', result);
         }, 5000);
+
+        socket.on('send_data', (data) => {
+            socket.emit('receive_data', data);
+        });
         socket.on('disconnect', () => {
             console.log('disconnected');
         });
