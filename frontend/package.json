@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.2",
     "react-flatpickr": "^3.10.13",
+    "react-number-format": "^5.3.1",
     "react-router-dom": "^6.20.1",
     "react-transition-group": "^4.4.5",
     "socket.io-client": "^4.7.3",
