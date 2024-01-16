@@ -51,7 +51,7 @@ function Hot() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="mt-[20px] w-[98%] h-[90%] mx-auto col-span-full rounded-xl xl:col-span-full bg-white dark:bg-gray-900 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
           <header className="px-5 py-4  flex flex-row justify-between dark:border-slate-700">
-            <h2 className="font-semibold text-[32px] text-slate-800 dark:text-slate-300">Hot Signal</h2>
+            <h2 className="font-semibold text-[32px] text-slate-800 dark:text-slate-300">Hot Pairs</h2>
           </header>
           <div className="mx-auto mx-2 py-2 grid grid-cols-1 gap-0 lg:grid-cols-1">
           <div className="">
