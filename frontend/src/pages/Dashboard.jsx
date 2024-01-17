@@ -49,7 +49,7 @@ function Dashboard() {
         {/* <div className=""> */}
         {/* <MarqueeNav flow_data={hot_data_sort}/>    */}
         {/* </div> */}
-        <div className="grid grid-col-1 gap-7 ">
+        <div className="grid grid-col-1 gap-[30px] ">
           <HotSignal hot={hot_data_sort}/>
           <LongSignal long={long_data}/>
           <ShortSignal short={short_data}/>
