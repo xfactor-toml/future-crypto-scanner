@@ -9,7 +9,7 @@ const getData = (data) => {
 controller.getTickerPriceForSocket(getData);
 setInterval(() => {
     controller.getTickerPriceForSocket(getData);
-}, 15000);
+}, 30000);
 
 
 exports = module.exports = server = (io) => {
