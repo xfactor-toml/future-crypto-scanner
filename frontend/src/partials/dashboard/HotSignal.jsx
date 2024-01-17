@@ -23,11 +23,11 @@ function HotSignal(hot) {
       </header>
       <div className="mx-auto mx-2 py-2 grid grid-cols-1 gap-0">
         <div className="">
-          <ul className="text-[16px] font-semibold grid grid-cols-6 gap-x-2">
+          <ul className="text-[16px] font-semibold grid grid-cols-5 gap-x-2">
             <li className="text-center text-slate-400 ">No</li>
             <li className="text-slate-400">Pairs</li>
             <li className="text-center text-slate-400">Price</li>
-            <li className="text-center text-slate-400">Rate of change</li>
+            {/* <li className="text-center text-slate-400">Rate of change</li> */}
             <li className="text-center text-slate-400">Volume</li>
             <li className="text-center text-slate-400">Open</li>
           </ul>
@@ -54,7 +54,7 @@ function HotSignal(hot) {
                       {item.symbol}USDT
                     </li>
                     <li key={item} className="text-center text-slate-300">{item.price}</li>
-                    <li key={item} className="text-center font-semibold text-emerald-500">{(item._3minchange > 0)?<span className='text-emerald-500'>{item._3minchange} %</span>:<span className='text-red-500'>{item._3minchange} %</span>}</li>
+                    {/* <li key={item} className="text-center font-semibold text-emerald-500">{(item._3minchange > 0)?<span className='text-emerald-500'>{item._3minchange} %</span>:<span className='text-red-500'>{item._3minchange} %</span>}</li> */}
                     <li key={item} className="text-center text-slate-300">$ <NumericFormat displayType="text" value={item.volume} allowLeadingZeros thousandSeparator="," /></li>
                     <li key={item} className="text-center font-semibold">
                       {
