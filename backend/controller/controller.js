@@ -3,11 +3,11 @@ const axios = require('axios');
 const putToken = (item, _3mKline, _1hKline, _1dKline) => {
   let token = {};
   token.symbol = item?.symbol.toLowerCase().slice(0, -4);
-  token.price = Number(item?.price).toFixed(3);
-  token.volume = Number(_1dKline?.data[0][7]).toFixed(3);
-  token._3minchange = ((Number(_3mKline?.data[0][4]) - Number(_3mKline?.data[0][1])) * 100 / Number(_3mKline?.data[0][1])).toFixed(3);
-  token._1hHige = Number(_1hKline?.data[0][2]).toFixed(3);
-  token._1hLow = Number(_1hKline?.data[0][3]).toFixed(3);
+  token.price = Number(item?.price).toFixed(4);
+  token.volume = Number(_1dKline?.data[0][7]).toFixed(4);
+  token._3minchange = ((Number(_3mKline?.data[0][4]) - Number(_3mKline?.data[0][1])) * 100 / Number(_3mKline?.data[0][1])).toFixed(4);
+  token._1hHige = Number(_1hKline?.data[0][2]).toFixed(4);
+  token._1hLow = Number(_1hKline?.data[0][3]).toFixed(4);
 
   return token;
 }
@@ -39,8 +39,8 @@ exports.getTickerPriceForSocket = async (data) => {//Socket API
         if (Number(_1dKline.data[0][7]) >= 1000000) {//over 1 million USDT
           hotTokens.push({
             "symbol" : item?.symbol.toLowerCase().slice(0, -4),
-            "price" : Number(item?.price).toFixed(3),
-            "volume" : Number(_1dKline?.data[0][7]).toFixed(3),
+            "price" : Number(item?.price).toFixed(4),
+            "volume" : Number(_1dKline?.data[0][7]).toFixed(4),
           })
           if(  Math.abs((Number(_3mKline.data[0][4]) - Number(_3mKline.data[0][1])) * 100 / Number(_3mKline.data[0][1])) >= 2 ) {//price increase or decrease rate is bigger than 0.1 or less than 0.1.
 
