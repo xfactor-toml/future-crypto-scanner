@@ -2,13 +2,14 @@ const controller = require('./controller/controller');
 
 let result;
 const getData = (data) => {
+    console.log(data);
     result = data;
 }
 
 controller.getTickerPriceForSocket(getData);
 setInterval(() => {
     controller.getTickerPriceForSocket(getData);
-}, 15000);
+}, 30000);
 
 
 exports = module.exports = server = (io) => {
