@@ -11,20 +11,21 @@ const socket = io.connect(`${window.location.hostname}:4000`);
 function Dashboard() {
   const [long_data, setData1] = useState([]);
   const [short_data, setData2] = useState([]);
+  const [hot_data, setData3] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  var hot_data = [...long_data,...short_data];
-  hot_data = hot_data.sort((a, b) => Math.abs(b._3minchange) - Math.abs(a._3minchange)).slice(0, 5);
-  const hot_data_sort = hot_data.map(obj => {
-    if (obj._3minchange > 0) {
-      obj.volume = "long";
-    } else if (obj._3minchange < 0) {
-      obj.volume = "short";
-    }
-    return obj;
-  });
+  // var hot_data = [...long_data,...short_data];
+  // hot_data = hot_data.sort((a, b) => Math.abs(b._3minchange) - Math.abs(a._3minchange)).slice(0, 5);
+  // const hot_data_sort = hot_data.map(obj => {
+  //   if (obj._3minchange > 0) {
+  //     obj.volume = "long";
+  //   } else if (obj._3minchange < 0) {
+  //     obj.volume = "short";
+  //   }
+  //   return obj;
+  // });
 
   socket.on('send_token', (data) => {
-    if(data.longTokens){
+    if(data.shortTokens){
       setData2(data.shortTokens);
     }
     else{
@@ -36,8 +37,14 @@ function Dashboard() {
     else{
       setData1([]);
     }
+    if(data.hotTokens){
+      setData3(data.hotTokens);
+    }
+    else{
+      setData3([]);
+    }
   });
-  console.log(long_data, short_data);
+  // console.log(long_data, short_data,hot_data);
   return (
     <div className=" relative flex overflow-hidden h-full">
       {/* Sidebar */}
@@ -50,7 +57,7 @@ function Dashboard() {
         {/* <MarqueeNav flow_data={hot_data_sort}/>    */}
         {/* </div> */}
         <div className="grid grid-col-1 gap-[30px] ">
-          <HotSignal hot={hot_data_sort}/>
+          <HotSignal hot={hot_data}/>
           <LongSignal long={long_data}/>
           <ShortSignal short={short_data}/>
         </div>

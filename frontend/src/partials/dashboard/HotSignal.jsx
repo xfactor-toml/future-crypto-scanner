@@ -8,7 +8,8 @@ import "../../css/additional-styles/animate.css"
 
 function HotSignal(hot) {
   const data = hot.hot;
-
+  var data_update = data.filter(item => item.volume > 1000000).sort((a, b) => Number(b.volume) - Number(a.volume));
+  // console.log(data_update);
   var hasBtc = binanceCryptoIcons.has('');
   var btcIcon = binanceCryptoIcons.get('');
   const default_hasBtc = binanceCryptoIcons.has('cfx');
@@ -23,13 +24,13 @@ function HotSignal(hot) {
       </header>
       <div className="mx-auto mx-2 py-2 grid grid-cols-1 gap-0">
         <div className="">
-          <ul className="text-[16px] font-semibold grid grid-cols-5 gap-x-2">
+          <ul className="text-[16px] font-semibold grid grid-cols-4 gap-x-2">
             <li className="text-center text-slate-400 ">No</li>
-            <li className="text-slate-400">Pairs</li>
+            <li className="ml-[20%] text-slate-400">Pairs</li>
             <li className="text-center text-slate-400">Price</li>
             {/* <li className="text-center text-slate-400">Rate of change</li> */}
             <li className="text-center text-slate-400">Volume</li>
-            <li className="text-center text-slate-400">Open</li>
+            {/* <li className="text-center text-slate-400">Open</li> */}
           </ul>
         </div>
         <div></div>
@@ -40,14 +41,14 @@ function HotSignal(hot) {
         <div className="mx-auto mx-2 py-2 grid grid-cols-1 gap-0">
           <div className="">
             {
-              data.length? data.map((item, index) => {
-                var unKnown = item.pairs;
+              data_update.length? data_update.map((item, index) => {
+                var unKnown = item.symbol;
                 hasBtc = binanceCryptoIcons.has(unKnown);
                 btcIcon = binanceCryptoIcons.get(unKnown);
-                if(index < 5)
-                  return (<ul className="grid grid-cols-6 gap-x-3">
+                if(index < 5 )
+                  return (<ul className="grid grid-cols-4 gap-x-3">
                     <li key={item} className="text-center text-slate-300">#{index+1}</li>
-                    <li key={item} className=" text-[16px] flex flex-col md:flex-row items-center text-slate-300 uppercase">
+                    <li key={item} className="text-center ml-[20%] text-[16px] flex flex-col md:flex-row items-center  text-slate-300 uppercase">
                       {
                         hasBtc? <span dangerouslySetInnerHTML={{__html: btcIcon.replace('"32"', '"24"')}} />:<span dangerouslySetInnerHTML={{__html: default_btcIcon.replace('"32"', '"24"')}} />
                       }
@@ -56,11 +57,11 @@ function HotSignal(hot) {
                     <li key={item} className="text-center text-slate-300">{item.price}</li>
                     {/* <li key={item} className="text-center font-semibold text-emerald-500">{(item._3minchange > 0)?<span className='text-emerald-500'>{item._3minchange} %</span>:<span className='text-red-500'>{item._3minchange} %</span>}</li> */}
                     <li key={item} className="text-center text-slate-300">$ <NumericFormat displayType="text" value={item.volume} allowLeadingZeros thousandSeparator="," /></li>
-                    <li key={item} className="text-center font-semibold">
+                    {/* <li key={item} className="text-center font-semibold">
                       {
                         (item._3minchange > 0)?<span className='text-emerald-500 uppercase'>long</span>:<span className='text-red-500 uppercase'>short</span>  
                       }
-                    </li>
+                    </li> */}
                   </ul>)
               }
               ):<h1 className="text-center text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1 mt-[40px]">No Matching Data  😭</h1>
