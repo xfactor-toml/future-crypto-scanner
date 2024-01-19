@@ -41,7 +41,7 @@ function Long() {
                   <li className="text-slate-400">Pairs</li>
                   <li className="text-center text-slate-400">Price</li>
                   <li className="text-center text-slate-400">Last 3min</li>
-                  <li className="text-center text-slate-400">lh high</li>
+                  <li className="text-center text-slate-400">1h high</li>
                   <li className="text-center text-slate-400">1h low</li>
                   <li className="text-center text-slate-400">Open</li>
                 </ul>

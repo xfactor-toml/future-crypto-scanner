@@ -81,8 +81,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           {/* Logo */}
           <NavLink end to="/" className="flex flex-row items-center ">
             
-            <img src={logo} className='w-[50px]'></img>
-            <span className="text-center text-md  dark:text-blue-100 font-bold font-[sans-serif] mb-1">Future Crypto Scanner</span>
+            <img src={logo} className='w-[300px]'></img>
+            {/* <span className="text-center text-md  dark:text-blue-100 font-bold font-[sans-serif] mb-1">Future Crypto Scanner</span> */}
           </NavLink>
         </div>
 
