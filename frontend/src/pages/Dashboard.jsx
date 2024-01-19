@@ -30,7 +30,6 @@ function Dashboard() {
       }else{
         setData3([]);
       }
-      console.log(long_data,"status: OK");
     }else{
       console.log('status : Error');
     }
