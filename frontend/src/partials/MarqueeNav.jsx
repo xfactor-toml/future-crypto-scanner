@@ -18,8 +18,8 @@ function MarqueeNav(flow_data) {
                   hasBtc = binanceCryptoIcons.has(unKnown);
                   btcIcon = binanceCryptoIcons.get(unKnown);
                   if(index < 5)
-                    return (<ul className="grid grid-cols-2 gap-x-1">
-                      <li key={item} className=" text-[16px] flex flex-col md:flex-row items-center">
+                    return (<ul key={index} className="grid grid-cols-2 gap-x-1">
+                      <li className=" text-[16px] flex flex-col md:flex-row items-center">
                       #{index+1}
                         {
                           hasBtc? <span dangerouslySetInnerHTML={{__html: btcIcon.replace('"32"', '"24"')}} />:
@@ -27,7 +27,7 @@ function MarqueeNav(flow_data) {
                         }
                         {item.symbol}
                       </li>
-                      <li key={item} className="text-center">{item.price}</li>
+                      <li className="text-center">{item.price}</li>
                     </ul>)
                 }
                 ):<h1 className="text-center text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1"></h1>
