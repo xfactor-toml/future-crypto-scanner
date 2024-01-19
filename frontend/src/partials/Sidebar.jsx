@@ -96,7 +96,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
+                      {/* <a
                         href="#0"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname.includes('') ? 'hover:text-slate-200' : 'hover:text-white'
@@ -105,7 +105,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           e.preventDefault();
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
-                      >
+                      > */}
                         <div className="flex items-center justify-between">
                           <Link to="/">
                             <div className="flex items-center">
@@ -129,7 +129,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </div>
                           </Link>
                         </div>
-                      </a>
+                      {/* </a> */}
                     </React.Fragment>
                   );
                 }}
@@ -140,7 +140,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
+                      {/* <a
                         href="#0"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname.includes('') ? 'hover:text-slate-200' : 'hover:text-white'
@@ -149,7 +149,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           e.preventDefault();
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
-                      >
+                      > */}
                         <div className="flex items-center justify-between">
                         <Link to="/hot">
                           <div className="flex items-center">
@@ -169,7 +169,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </div>
                           </Link>
                         </div>
-                      </a>
+                      {/* </a> */}
                     </React.Fragment>
                   );
                 }}
@@ -179,7 +179,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
+                      {/* <a
                         href="#0"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname.includes('') ? 'hover:text-slate-200' : 'hover:text-white'
@@ -188,7 +188,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           e.preventDefault();
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
-                      >
+                      > */}
                         <div className="flex items-center justify-between">
                         <Link to="/long">
                           <div className="flex items-center">
@@ -216,7 +216,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </div>
                           </Link>
                         </div>
-                      </a>
+                      {/* </a> */}
                     </React.Fragment>
                   );
                 }}
@@ -226,7 +226,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
+                      {/* <a
                         href="#0"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname.includes('finance') ? 'hover:text-slate-200' : 'hover:text-white'
@@ -235,7 +235,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           e.preventDefault();
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
-                      >
+                      > */}
                         <div className="flex items-center justify-between">
                         <Link to="/short">
                           <div className="flex items-center">
@@ -259,7 +259,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </div>
                           </Link>
                         </div>
-                      </a>
+                      {/* </a> */}
                     </React.Fragment>
                   );
                 }}
@@ -268,7 +268,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
+                      {/* <a
                         href="#0"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname.includes('utility') ? 'hover:text-slate-200' : 'hover:text-white'
@@ -277,7 +277,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           e.preventDefault();
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
-                      >
+                      > */}
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
                             <svg className="shrink-0 h-10 w-10" viewBox="0 0 24 24">
@@ -311,7 +311,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </span>
                           </div>
                         </div>
-                      </a>
+                      {/* </a> */}
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className="mb-1 last:mb-0">
