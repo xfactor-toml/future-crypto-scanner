@@ -39,7 +39,7 @@ exports.getRealTimeData =async (getData) => {
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     const miniTickers = data.data;
-    console.log('count', miniTickers.length);
+    // console.log('count', miniTickers.length);
 
     // realTimeData = realTimeData.filter((i) => {
 

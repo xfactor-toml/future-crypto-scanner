@@ -4,12 +4,12 @@ const websocekt = require('./ws');
 let token3min;
 let realTimeTokens;
 const getData = (data) => {
-    console.log(data);
+    // console.log(data);
     token3min = data;
 }
 
 const getRealData = (data) => {
-    console.log(data.realTimeData.length);
+    // console.log(data.realTimeData.length);
     realTimeTokens = data;
 }
 
