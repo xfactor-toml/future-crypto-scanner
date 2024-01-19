@@ -9,9 +9,9 @@ exports.getRealTimeData = (getData) => {
         Promise.all(miniTickers.map(item => {
           if(Number(item.c) > 0.01 && Number(item.c) < 2 && Number(item.q) > 1000000)
           realTimeData.push({
-            'symbol': item.s,
-            'price' : item.c,
-            'volume': item.q,
+            'symbol': item.s.toLowerCase().slice(0, -4),
+            'price' : item.c.toFixed(4),
+            'volume': item.q.toFixed(4),
           });
         })).then(() => {
           getData({
