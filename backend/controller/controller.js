@@ -25,7 +25,7 @@ exports.getTickerPriceForSocket = async (data) => {//Socket API
     const tokensBetween = tickerPriceList.data.filter(item => Number(item.price) >= 0.01 && Number(item.price) <= 2);// tokens between 0.01~2
     let longTokens = [];
     let shortTokens = [];
-    let hotTokens = [];
+    // let hotTokens = [];
     await Promise.all(
       tokensBetween.map(async (item) => {
         const _3mKline = await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${item.symbol}&interval=3m&limit=1`, {//kline per ticker
@@ -37,11 +37,11 @@ exports.getTickerPriceForSocket = async (data) => {//Socket API
         });
 
         if (Number(_1dKline.data[0][7]) >= 1000000) {//over 1 million USDT
-          hotTokens.push({
-            "symbol" : item?.symbol.toLowerCase().slice(0, -4),
-            "price" : Number(item?.price).toFixed(4),
-            "volume" : Number(_1dKline?.data[0][7]).toFixed(4),
-          })
+          // hotTokens.push({
+          //   "symbol" : item?.symbol.toLowerCase().slice(0, -4),
+          //   "price" : Number(item?.price).toFixed(4),
+          //   "volume" : Number(_1dKline?.data[0][7]).toFixed(4),
+          // })
           if(  Math.abs((Number(_3mKline.data[0][4]) - Number(_3mKline.data[0][1])) * 100 / Number(_3mKline.data[0][1])) >= 2 ) {//price increase or decrease rate is bigger than 0.1 or less than 0.1.
 
             const _1hKline = await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${item.symbol}&interval=1h&limit=1`, {// High and Low price during 1 hour
@@ -55,10 +55,28 @@ exports.getTickerPriceForSocket = async (data) => {//Socket API
         }
       })
     ).then(() => {
-      data({longTokens, shortTokens, hotTokens});
+      data({
+        'longTokens' : longTokens,
+        'shortTokens' : shortTokens,
+        'status' : 'ok',
+      });
+      longTokens = [];
+      shortTokens = [];
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      data({
+        'longTokens' : [],
+        'shortTokens' : [],
+        'status' : error,
+      });
+      longTokens = [];
+      shortTokens = [];
+    });
   } catch (error) {
-    data({ error: `error: ${error}`});
+    data({
+      'longTokens' : [],
+      'shortTokens' : [],
+      'status' : error,
+    });
   }
 }

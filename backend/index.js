@@ -11,6 +11,7 @@ const PORT_ClIENT = 3001;
 const PORT_SOCKET = 4000;
 
 const socket = require('./server');
+// require('./ws');
 
 const server = http.createServer(app);
 
