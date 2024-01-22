@@ -56,7 +56,7 @@ function Hot() {
           </header>
           <div className="mx-auto py-2 grid grid-cols-1 gap-0 lg:grid-cols-1">
             <div className="">
-              <ul className="text-[16px] font-semibold grid grid-cols-4 gap-x-2">
+              <ul className="text-[16px] font-semibold grid grid-cols-4">
                 <li className="text-center text-slate-400 ">No</li>
                 <li className="ml-[20%] text-slate-400">Pairs</li>
                 <li className="text-center text-slate-400">Price</li>
@@ -66,7 +66,7 @@ function Hot() {
             <div></div>
             <div></div>
           </div>
-          <div className="ml-[10px] w-[95%] h-[3px]  bg-gray-500 mb-[4px]"></div>
+          <div className="m-auto w-[95%] h-[3px]  bg-gray-500 mb-[4px]"></div>
           <div>
             <div className="h-[100%] mx-auto py-2 grid grid-cols-1 gap-0 lg:grid-cols-1">
               <div className="">
@@ -84,7 +84,7 @@ function Hot() {
                         }{item.symbol}
                       </li>
                       <li className="text-center text-slate-300">{Number(item.price).toFixed(4)}</li>
-                      <li className="text-center text-slate-300">$ <NumericFormat displayType="text" value={Number(item.volume).toFixed(4)} allowLeadingZeros thousandSeparator="," /></li>
+                      <li className="text-center text-slate-300"><NumericFormat displayType="text" value={Number(item.volume).toFixed(4)} allowLeadingZeros thousandSeparator="," /> $</li>
                       
                     </ul>)
                   }
@@ -101,7 +101,7 @@ function Hot() {
           </header>
           <div className="mx-auto mx-2 py-2 grid grid-cols-1 gap-0 lg:grid-cols-1">
             <div className="">
-              <ul className="text-[16px] font-semibold grid grid-cols-4 gap-x-2">
+              <ul className="text-[16px] font-semibold grid grid-cols-4">
                 <li className="text-center text-slate-400 ">No</li>
                 <li className="ml-[20%] text-slate-400">Pairs</li>
                 <li className="text-center text-slate-400">Price</li>
