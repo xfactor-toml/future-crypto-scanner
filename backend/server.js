@@ -8,7 +8,7 @@ const getData = (data) => {
 }
 
 const getRealData = (data) => {
-    // console.log(data);
+    // console.log(data.realTimeData.length);
     realTimeTokens = data;
 }
 
