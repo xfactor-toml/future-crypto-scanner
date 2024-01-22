@@ -4,12 +4,11 @@ const websocekt = require('./ws');
 let token3min;
 let realTimeTokens;
 const getData = (data) => {
-    // console.log(data);
     token3min = data;
 }
 
 const getRealData = (data) => {
-    // console.log(data.realTimeData.length);
+    // console.log(data);
     realTimeTokens = data;
 }
 
@@ -34,9 +33,6 @@ exports = module.exports = server = (io) => {
             socket.emit('realTimeData', realTimeTokens);
         }, 1000);
 
-        socket.on('send_data', (data) => {
-            socket.emit('receive_data', data);
-        });
         socket.on('disconnect', () => {
             console.log('disconnected');
         });
