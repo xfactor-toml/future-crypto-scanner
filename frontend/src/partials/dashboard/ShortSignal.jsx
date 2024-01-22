@@ -40,8 +40,8 @@ function ShortSignal(short) {
             {
               data.length? data.map((item, index) => {
                 var unKnown = item.symbol.slice(0, -4).toLowerCase();
-                hasBtc = binanceCryptoIcons.has(ico);
-                btcIcon = binanceCryptoIcons.get(ico);
+                hasBtc = binanceCryptoIcons.has(unKnown);
+                btcIcon = binanceCryptoIcons.get(unKnown);
                 if(index < 5)
                   return (<ul key={index} className="grid grid-cols-7 gap-x-3">
                     <li className="text-center text-slate-300">#{index+1}</li>
