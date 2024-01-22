@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const putToken = (item, _3mKline, _1hKline, _1dKline) => {
   let token = {};
-  token.symbol = item?.symbol.toLowerCase().slice(0, -4);
+  token.symbol = item?.symbol;
   token.price = Number(item?.price).toFixed(4);
   token.volume = Number(_1dKline?.data[0][7]).toFixed(4);
   token._3minchange = ((Number(_3mKline?.data[0][4]) - Number(_3mKline?.data[0][1])) * 100 / Number(_3mKline?.data[0][1])).toFixed(4);
@@ -38,7 +38,7 @@ exports.getTickerPriceForSocket = async (data) => {//Socket API
 
         if (Number(_1dKline.data[0][7]) >= 1000000) {//over 1 million USDT
           // hotTokens.push({
-          //   "symbol" : item?.symbol.toLowerCase().slice(0, -4),
+          //   "symbol" : item?.symbol,
           //   "price" : Number(item?.price).toFixed(4),
           //   "volume" : Number(_1dKline?.data[0][7]).toFixed(4),
           // })

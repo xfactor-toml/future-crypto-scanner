@@ -12,17 +12,21 @@ exports.getRealTimeData =async (getData) => {
         });
     if (Number(_1dKline.data[0][7]) >= 1000000)
     realTimeData.push({
-      'symbol': item.symbol.toLowerCase().slice(0, -4),
+      'symbol': item.symbol,
       'price' : Number(item?.price).toFixed(4),
       'volume': Number(_1dKline?.data[0][7]).toFixed(4),
     });
   })).then(() => {
-    console.log(realTimeData.length);
+    // console.log(realTimeData.length);
+    // realTimeData.sort((a, b) => {
+    //   return Number(a.symbol) - Number(b.symbol);
+    // })
     getData({
             'realTimeData' : realTimeData,
             'status' : 'ok',
           });
   }).catch((error) => {
+    // console.log('connect error');
     getData({
       'realTimeData' : [],
       'status' : error,
@@ -33,7 +37,7 @@ exports.getRealTimeData =async (getData) => {
   const websocketThread = () => {
     var socket = new WebSocket('wss://fstream.binance.com/stream?streams=!ticker@arr'); // all changed tickers
     socket.onopen = () => {
-  
+      console.log('binance websocket connect');
     }
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -41,27 +45,27 @@ exports.getRealTimeData =async (getData) => {
   
       Promise.all(miniTickers.map(item => {
         if(Number(item.c) > 0.01 && Number(item.c) < 2 && Number(item.q) > 1000000) {      //  if 0.01 ~ 2
-        if(realTimeData.find((t) => t.symbol === item.s.toLowerCase().slice(0, -4)))   // if already exists, replace it.
+        if(realTimeData.find((t) => t.symbol === item.s))   // if already exists, replace it.
             realTimeData.splice(
-            realTimeData.findIndex((t) => t.symbol === item.s.toLowerCase().slice(0, -4)) 
+            realTimeData.findIndex((t) => t.symbol === item.s) 
             , 1, 
             {
-              'symbol': item.s.toLowerCase().slice(0, -4),
+              'symbol': item.s,
               'price' : Number(item.c).toFixed(4),
               'volume': Number(item.q).toFixed(4),
             });
         else                                                                              // if not exists, push.            
             realTimeData.push(
               {
-                'symbol': item.s.toLowerCase().slice(0, -4),
+                'symbol': item.s,
                 'price' : Number(item.c).toFixed(4),
                 'volume': Number(item.q).toFixed(4),
               }
             )}
         else {
-          if(realTimeData.find((t) => t.symbol === item.s.toLowerCase().slice(0, -4)))
+          if(realTimeData.find((t) => t.symbol === item.s))
           realTimeData.splice(
-            realTimeData.findIndex((t) => t.symbol === item.s.toLowerCase().slice(0, -4)) , 1);
+            realTimeData.findIndex((t) => t.symbol === item.s) , 1);
         }                                                                              // if < 0.01 or > 2, delete item.
       }))
       .then(() => {
@@ -78,12 +82,12 @@ exports.getRealTimeData =async (getData) => {
       });
     }
     socket.onerror = error => {
-      console.log('binance websocket error occured, so reconnected');
+      console.log('binance websocket error occured, so reconnect');
       socket = null;
       setTimeout(websocketThread, 1000);
     }
     socket.onclose = () => {
-      console.log('binance websocket socket closed, so reconnected');
+      console.log('binance websocket closed, so reconnect');
       socket = null;
       setTimeout(websocketThread, 1000);
     }
