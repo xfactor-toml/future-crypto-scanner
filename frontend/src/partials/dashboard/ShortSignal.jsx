@@ -14,7 +14,7 @@ function ShortSignal(short) {
                    rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 flex flex-row justify-between dark:border-slate-700">
         <h2 className="font-semibold text-[32px] text-slate-800 dark:text-slate-300">Short Signal</h2>
-        <a className="mt-[10px] font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400" href="/hot">
+        <a className="mt-[10px] font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400" href="/short">
           All
         </a>
       </header>
