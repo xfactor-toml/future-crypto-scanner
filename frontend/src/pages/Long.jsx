@@ -14,7 +14,7 @@ function Long() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const startWebsocket = () => {
-    socket.on('send_token', (data) => {
+    socket.on('token3min', (data) => {
       if(data.longTokens){
         setData(data.longTokens);
       }else{
@@ -31,13 +31,6 @@ function Long() {
     };
   }
   startWebsocket();
-  socket.on('send_token', (data) => {
-    if(data.longTokens){
-      setData(data.longTokens);
-    }else{
-      setData([]);
-    }
-  });
   
   return (
     <div className="flex h-screen overflow-hidden">
@@ -47,7 +40,7 @@ function Long() {
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <div className="mt-[20px] w-[98%] h-[90%] mx-auto col-span-full rounded-xl xl:col-span-full bg-white dark:bg-gray-900 
+          <div className="mt-[20px] w-[98%] min-h-[90vh] mx-auto col-span-full rounded-xl xl:col-span-full bg-white dark:bg-gray-900 
                           shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
             <header className="px-5 py-4  flex flex-row justify-between dark:border-slate-700">
               <h2 className="font-semibold text-[32px] text-slate-800 dark:text-slate-300">Long Signal</h2>

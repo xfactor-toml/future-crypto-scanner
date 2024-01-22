@@ -58,7 +58,7 @@ function Hot() {
             <div className="">
               <ul className="text-[16px] font-semibold grid grid-cols-4">
                 <li className="text-center text-slate-400 ">No</li>
-                <li className="ml-[20%] text-slate-400">Pairs</li>
+                <li className=" sm:ml-[20%] text-slate-400">Pairs</li>
                 <li className="text-center text-slate-400">Price</li>
                 <li className="text-center text-slate-400">Volume</li>
               </ul>
@@ -77,7 +77,7 @@ function Hot() {
                     btcIcon = binanceCryptoIcons.get(unKnown);
                     return (<ul key={index} className="grid grid-cols-4 gap-x-3">
                       <li className="text-center text-slate-300 ">#{index + 1}</li>
-                      <li className="text-center ml-[20%] text-[16px] flex flex-col md:flex-row items-center text-slate-300 uppercase">
+                      <li className="text-center sm:ml-[20%] text-[16px] flex flex-col md:flex-row items-center text-slate-300 uppercase">
                         {
                           hasBtc ? <span dangerouslySetInnerHTML={{ __html: btcIcon.replace('"32"', '"24"') }} /> :
                             <span dangerouslySetInnerHTML={{ __html: default_btcIcon.replace('"32"', '"24"') }} />
