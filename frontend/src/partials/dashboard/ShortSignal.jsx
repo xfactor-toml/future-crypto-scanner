@@ -39,7 +39,7 @@ function ShortSignal(short) {
           <div>
             {
               data.length? data.map((item, index) => {
-                var ico = item.symbol.replace("USDT","").toLowerCase();
+                var unKnown = item.symbol.slice(0, -4).toLowerCase();
                 hasBtc = binanceCryptoIcons.has(ico);
                 btcIcon = binanceCryptoIcons.get(ico);
                 if(index < 5)
@@ -49,7 +49,7 @@ function ShortSignal(short) {
                       {
                         hasBtc? <span dangerouslySetInnerHTML={{__html: btcIcon.replace('"32"', '"24"')}} />:
                         <span dangerouslySetInnerHTML={{__html: default_btcIcon.replace('"32"', '"24"')}} />
-                      }{item.symbol.replace("USDT","").toUpperCase()}USDT
+                      }{item.symbol}
                     </li>
                     <li className="text-center text-slate-300">{Number(item.price).toFixed(4)}</li>
                     <li className="text-center font-semibold text-red-500">{Number(item._3minchange).toFixed(4)} %</li>
