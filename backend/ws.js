@@ -17,16 +17,15 @@ exports.getRealTimeData =async (getData) => {
       'volume': Number(_1dKline?.data[0][7]).toFixed(4),
     });
   })).then(() => {
-    // console.log(realTimeData.length);
-    // realTimeData.sort((a, b) => {
-    //   return Number(a.symbol) - Number(b.symbol);
-    // })
+    realTimeData.sort((a, b) => {
+      return a.symbol.charCodeAt(0) - b.symbol.charCodeAt(0);
+    })
     getData({
             'realTimeData' : realTimeData,
             'status' : 'ok',
           });
   }).catch((error) => {
-    // console.log('connect error');
+    console.log('first request error! so realTimeData is empty');
     getData({
       'realTimeData' : [],
       'status' : error,
@@ -54,7 +53,7 @@ exports.getRealTimeData =async (getData) => {
               'price' : Number(item.c).toFixed(4),
               'volume': Number(item.q).toFixed(4),
             });
-        else                                                                              // if not exists, push.            
+        else //--------------------------------------------------------------------------- if not exists, push.            
             realTimeData.push(
               {
                 'symbol': item.s,
@@ -66,7 +65,7 @@ exports.getRealTimeData =async (getData) => {
           if(realTimeData.find((t) => t.symbol === item.s))
           realTimeData.splice(
             realTimeData.findIndex((t) => t.symbol === item.s) , 1);
-        }                                                                              // if < 0.01 or > 2, delete item.
+        } //------------------------------------------------------------------------------- if < 0.01 or > 2, delete item.
       }))
       .then(() => {
           getData({
@@ -75,6 +74,7 @@ exports.getRealTimeData =async (getData) => {
           });
       })
       .catch(error => {
+        console.log('websocket connection error!, so realTimeDada is not changed');
           getData({
             'realTimeData' : [],
             'status' : error,
@@ -94,25 +94,3 @@ exports.getRealTimeData =async (getData) => {
   }
   websocketThread();
 }
-
-//const klineStream = `${symbol.toLowerCase()}@kline_3m`;
-
-//const klineSocket = new WebSocket(`wss://fstream.binance.com/stream?streams=${klineStream}`);
-
-// const WebSocket = require('ws');///////////////////////////////////////////////////////////////////////////////////
-
-// const soc = new WebSocket('wss://fstream.binance.com/ws/btcusdt@kline_1m');
-
-// soc.onopen = () => {
-//   console.log('Connected to Binance WebSocket1');
-// };
-// soc.onmessage = (event) => {
-//   const klineData = JSON.parse(event.data);
-//   console.log(klineData);
-// };
-// soc.onclose = () => {
-//   console.log('Disconnected from Binance WebSocket1');
-// };
-
-// const soc = new WebSocket('wss://fstream.binance.com/ws/!ticker@arr');
-// const soc = new WebSocket('wss://fstream.binance.com/stream?streams=!ticker@arr');
