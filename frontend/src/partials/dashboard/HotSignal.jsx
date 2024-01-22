@@ -39,7 +39,7 @@ function HotSignal(hot) {
           <div className="">
             {
               data_update.length? data_update.map((item, index) => {
-                var unKnown = item.symbol.replace("USDT","").toLowerCase();
+                var unKnown = item.symbol.slice(0, -4).toLowerCase();
                 hasBtc = binanceCryptoIcons.has(unKnown);
                 btcIcon = binanceCryptoIcons.get(unKnown);
                 if(index < 5 )
@@ -49,7 +49,7 @@ function HotSignal(hot) {
                       {
                         hasBtc? <span dangerouslySetInnerHTML={{__html: btcIcon.replace('"32"', '"24"')}} />:<span dangerouslySetInnerHTML={{__html: default_btcIcon.replace('"32"', '"24"')}} />
                       }
-                      {item.symbol.replace("USDT","")}USDT
+                      {item.symbol}
                     </li>
                     <li className="text-center text-slate-300">{Number(item.price).toFixed(4)}</li>
                     {/* <li className="text-center font-semibold text-emerald-500">{(item._3minchange > 0)?<span className='text-emerald-500'>{item._3minchange} %</span>:<span className='text-red-500'>{item._3minchange} %</span>}</li> */}

@@ -1,65 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import LongSignal from '../partials/dashboard/LongSignal';
 import ShortSignal from '../partials/dashboard/ShortSignal';
 import HotSignal from '../partials/dashboard/HotSignal';
-import MarqueeNav  from '../partials/MarqueeNav';
 import io from'socket.io-client';
-const socket = io.connect(`${window.location.hostname}:4000`);
+var socket = io.connect(`${window.location.hostname}:4000`);
 
 function Dashboard() {
   const [long_data, setData1] = useState([]);
   const [short_data, setData2] = useState([]);
   const [hot_data, setData3] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // var hot_data = [...long_data,...short_data];
-  // hot_data = hot_data.sort((a, b) => Math.abs(b._3minchange) - Math.abs(a._3minchange)).slice(0, 5);
-  // const hot_data_sort = hot_data.map(obj => {
-  //   if (obj._3minchange > 0) {
-  //     obj.volume = "long";
-  //   } else if (obj._3minchange < 0) {
-  //     obj.volume = "short";
-  //   }
-  //   return obj;
-  // });
-  socket.on('realTimeData',(data) =>{
-    if(data.status == "ok"){
-      if(data.realTimeData){
-        setData3(data.realTimeData);
+  const [connecting, setConnecting] = useState(false);
+  const startWebsocket = () => {
+    socket.on('realTimeData',(data) =>{
+      if(data.status == "ok"){
+        if(data.realTimeData){
+          setData3(data.realTimeData);
+        }else{
+          setData3([]);
+        }
       }else{
-        setData3([]);
+        console.log('status : Error');
       }
-    }else{
-      console.log('status : Error');
-    }
-  })
-  socket.on('token3min', (data) => {
-    if(data.shortTokens){
-      setData2(data.shortTokens);
-    }
-    else{
-      setData2([]);
-    }
-    if(data.longTokens){
-      setData1(data.longTokens);
-    }
-    else{
-      setData1([]);
-    }
-  });
-  // console.log(long_data, short_data,hot_data);
+    })
+    socket.on('token3min', (data) => {
+      if(data.shortTokens){
+        setData2(data.shortTokens);
+      }
+      else{
+        setData2([]);
+      }
+      if(data.longTokens){
+        setData1(data.longTokens);
+      }
+      else{
+        setData1([]);
+      }
+    });
+    socket.onclose = () => {
+      socket = null;
+      setTimeout(startWebsocket, 1000);
+    };
+    socket.onerror = (error) => {
+      socket = null;
+      setTimeout(startWebsocket, 1000);
+    };
+  }
+  startWebsocket();
   return (
     <div className="relative flex overflow-hidden h-full">
-      {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      {/* Content area */}
       <div className=" relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        {/* <div className=""> */}
-        {/* <MarqueeNav flow_data={hot_data_sort}/>    */}
-        {/* </div> */}
         <div className="grid grid-col-1 gap-[30px] ">
           <HotSignal hot={hot_data}/>
           <LongSignal long={long_data}/>

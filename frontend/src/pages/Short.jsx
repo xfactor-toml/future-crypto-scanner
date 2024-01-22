@@ -3,7 +3,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { binanceCryptoIcons } from 'binance-icons';
 import io from'socket.io-client';
-const socket = io.connect(`${window.location.hostname}:4000`);
+var socket = io.connect(`${window.location.hostname}:4000`);
 
 function Short() {
   const [data, setData] = useState([]);
@@ -13,14 +13,24 @@ function Short() {
   const default_hasBtc = binanceCryptoIcons.has('cfx');
   const default_btcIcon = binanceCryptoIcons.get('cfx');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
-  socket.on('send_token', (data) => {
-    if(data.shortTokens){
-      setData(data.shortTokens);
-    }else{
-      setData([]);
-    }
-  });
+  const startWebsocket = () => {
+    socket.on('send_token', (data) => {
+      if(data.shortTokens){
+        setData(data.shortTokens);
+      }else{
+        setData([]);
+      }
+    });
+    socket.onclose = () => {
+      socket = null;
+      setTimeout(startWebsocket, 5000);
+    };
+    socket.onerror = (error) => {
+      socket = null;
+      setTimeout(startWebsocket, 1000);
+    };
+  }
+  startWebsocket();
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -56,9 +66,9 @@ function Short() {
             <div className="">
               {
                 data.length? data.map((item, index) => {
-                  var ico = item.symbol.replace("USDT","").toLowerCase();
-                  hasBtc = binanceCryptoIcons.has(ico);
-                  btcIcon = binanceCryptoIcons.get(ico);
+                  var unKnown = item.symbol.slice(0, -4).toLowerCase();
+                  hasBtc = binanceCryptoIcons.has(unKnown);
+                  btcIcon = binanceCryptoIcons.get(unKnown);
                     return (
                       <ul key={index} className="grid grid-cols-7 gap-x-3">
                         <li className="text-center text-slate-300">#{index+1}</li>
@@ -66,7 +76,7 @@ function Short() {
                           {
                             hasBtc? <span dangerouslySetInnerHTML={{__html: btcIcon.replace('"32"', '"24"')}} />:
                                     <span dangerouslySetInnerHTML={{__html: default_btcIcon.replace('"32"', '"24"')}} />
-                          }{item.symbol.replace("USDT","").toUpperCase()}USDT
+                          }{item.symbol}
                         </li>
                         <li className="text-center text-slate-300">{Number(item.price).toFixed(4)}</li>
                         <li className="text-center font-semibold text-red-500">{Number(item._3minchange).toFixed(4)} %</li>
