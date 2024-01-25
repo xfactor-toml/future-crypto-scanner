@@ -14,10 +14,10 @@ function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const startWebsocket = () => {
-    socket.on('realTimeData',(data) =>{
+    socket.on('realTimeTokens',(data) =>{
       if(data.status == "ok"){
-        if(data.realTimeData){
-          setData3(data.realTimeData);
+        if(data.realTimeTokens){
+          setData3(data.realTimeTokens);
         }else{
           setData3([]);
         }
@@ -25,7 +25,7 @@ function Dashboard() {
         console.log('status : Error');
       }
     })
-    socket.on('token3min', (data) => {
+    socket.on('token1min', (data) => {
       if(data.shortTokens){
         setData2(data.shortTokens);
       }

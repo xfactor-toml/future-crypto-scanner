@@ -52,9 +52,9 @@ function ShortSignal(short) {
                       }{item.symbol}
                     </li>
                     <li className="text-center text-slate-300">{Number(item.price).toFixed(4)}</li>
-                    <li className="text-center font-semibold text-red-500">{Number(item._3minchange).toFixed(4)} %</li>
-                    <li className="text-center text-slate-300">{Number(item._1hHige).toFixed(4)}</li>
-                    <li className="text-center text-slate-300">{Number(item._1hLow).toFixed(4)}</li>
+                    <li className="text-center font-semibold text-red-500">{Number(item.change).toFixed(4)} %</li>
+                    <li className="text-center text-slate-300">{Number(item.hige).toFixed(4)}</li>
+                    <li className="text-center text-slate-300">{Number(item.low).toFixed(4)}</li>
                     <li className="text-center font-semibold text-red-500">short</li>
                   </ul>)
               }

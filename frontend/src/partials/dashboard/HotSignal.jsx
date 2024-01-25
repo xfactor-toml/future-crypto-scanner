@@ -53,7 +53,7 @@ function HotSignal(hot) {
                     </li>
                     <li className="text-center text-slate-300">{Number(item.price).toFixed(4)}</li>
                     {/* <li className="text-center font-semibold text-emerald-500">{(item._3minchange > 0)?<span className='text-emerald-500'>{item._3minchange} %</span>:<span className='text-red-500'>{item._3minchange} %</span>}</li> */}
-                    <li className="text-center text-slate-300">$ <NumericFormat displayType="text" value={Number(item.volume).toFixed(4)} allowLeadingZeros thousandSeparator="," /></li>
+                    <li className="text-center text-slate-300"><NumericFormat displayType="text" value={Number(item.volume).toFixed(4)} allowLeadingZeros thousandSeparator="," /> $</li>
                     {/* <li className="text-center font-semibold">
                       {
                         (item._3minchange > 0)?<span className='text-emerald-500 uppercase'>long</span>:<span className='text-red-500 uppercase'>short</span>  
