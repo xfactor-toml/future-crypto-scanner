@@ -17,11 +17,11 @@ function Hot() {
   var fnial_data = hot_data.filter(item => item.volume > 1000000).sort((a, b) => Number(b.volume) - Number(a.volume));
 
   const startWebsocket = () => {
-    socket.on('realTimeTokens',(data) =>{
+    socket.on('realTimeData',(data) =>{
       if(data.status == "ok"){
-        if(data.realTimeTokens){
+        if(data.realTimeData){
           // console.log(data.realTimeTokens);
-          setData3(data.realTimeTokens);
+          setData3(data.realTimeData);
         }else{
           setData3([]);
         }
