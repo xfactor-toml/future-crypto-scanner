@@ -2,8 +2,9 @@ const axios = require('axios');
 
 exports.getRealTimeData =async (getData) => {
 
-  var longTokens = [];
-  var shortTokens = [];
+  var longTokens = {};
+  var shortTokens = {};
+  var history = {};
 
   const changePercent = (a, b) => {
     return Number(( ( b - a ) * 100 / a ).toFixed(4));
@@ -19,7 +20,7 @@ exports.getRealTimeData =async (getData) => {
     const websocketThread = () => {
       //---------------------------------------------if data is confirm to test condition, push it.-----------------------------------------//
       const testData = async ( data ) => {
-        if( Math.abs( changePercent( data.openPrice, data.closePrice ) ) >= 1.5 ) {
+        if( Math.abs( changePercent( data.openPrice, data.closePrice ) ) >= 0.5 ) {
           const kline1d = await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${data.symbol}&interval=1d&limit=1`)      //    a day kline
           if( Number(kline1d?.data[0][7]) >= 1000000 ) {
             const kline1h = await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${data.symbol}&interval=1h&limit=1`);   //    a hour kline
@@ -30,6 +31,18 @@ exports.getRealTimeData =async (getData) => {
               putData( data, shortTokens, kline1d, kline1h);
             }
           }
+          else {
+            if( longTokens[`${data.symbol}`] ) 
+              delete longTokens[`${data.symbol}`];
+            if( shortTokens[`${data.symbol}`] ) 
+              delete shortTokens[`${data.symbol}`];
+          }
+        }
+        else {
+          if( longTokens[`${data.symbol}`] ) 
+            delete longTokens[`${data.symbol}`];
+          if( shortTokens[`${data.symbol}`] ) 
+            delete shortTokens[`${data.symbol}`];
         }
       }
       //-------------------------------------------if data is not confirm to test condition, push it.-----------------------------------------//
@@ -45,33 +58,54 @@ exports.getRealTimeData =async (getData) => {
         realdata.high = Number(kline1h?.data[0][2]);
         realdata.low = Number(kline1h?.data[0][3]);
         
-          if( tokens.find( (t) => t.symbol === item.symbol ) ) {
-            if( tokens[tokens.findIndex( (t) => t.symbol === item.symbol )].openTime.toString() === realdata.openTime.toString() ){
-              tokens.splice(tokens.findIndex((t) => t.symbol === item.symbol), 1, realdata)
+        //----------------------------put data to tokens-----------------------------------------//
+          tokens[`${realdata.symbol}`] = {
+            openTime: realdata.openTime,
+            openPrice: realdata.openPrice,
+            closeTime: realdata.closeTime,
+            closePrice: realdata.closePrice,
+            high: realdata.high,
+            low: realdata.low,
+            volume: realdata.volume,
+            change: realdata.change,
+          };
+          //----------------------------put data to history-----------------------------------------//
+          if( history[`${realdata.symbol}`] ) {
+            if( history[`${realdata.symbol}`].at(-1).openTime.toString() === realdata.openTime.toString() ){
+              history[`${realdata.symbol}`].pop();
             }
-            else{
-              if(tokens.length >= 100){
-                tokens.shift();
-                tokens.push(realdata);
-              }
-              else{
-                tokens.push(realdata);
-              }
+            if( history[`${realdata.symbol}`].length >= 100 ){
+              history[`${realdata.symbol}`].shift();
             }
+            history[`${realdata.symbol}`].push({
+              openTime: realdata.openTime,
+              openPrice: realdata.openPrice,
+              closeTime: realdata.closeTime,
+              closePrice: realdata.closePrice,
+              high: realdata.high,
+              low: realdata.low,
+              volume: realdata.volume,
+              change: realdata.change,
+            })
           }
           else{
-            if(tokens.length >= 100){
-              tokens.shift();
-              tokens.push(realdata);
-            }
-            else{
-              tokens.push(realdata);
-            }
+            history[`${realdata.symbol}`] = [{
+              openTime: realdata.openTime,
+              openPrice: realdata.openPrice,
+              closeTime: realdata.closeTime,
+              closePrice: realdata.closePrice,
+              high: realdata.high,
+              low: realdata.low,
+              volume: realdata.volume,
+              change: realdata.change,
+              }];
           }
+          //-----------------------------return data to server.js-----------------------------------------//
           getData({
-            'longTokens' : longTokens,
-            'shortTokens' : shortTokens,
-            'status' : 'ok',
+            longTokens : longTokens,
+            shortTokens : shortTokens,
+            history : history,
+            status : 'ok',
           });
         
       }
