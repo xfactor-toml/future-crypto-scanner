@@ -25,7 +25,7 @@ function Dashboard() {
         console.log('status : Error');
       }
     })
-    socket.on('token3min', (data) => {
+    socket.on('token1min', (data) => {
       if(data.shortTokens){
         setData2(data.shortTokens);
       }
