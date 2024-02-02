@@ -6,11 +6,11 @@ const websocektKline = require('./websocket_klines');
 let token1min = {};
 let realTimeTokens = {}; 
 const getData = (data) => {
-    console.log('===========================================');
-    console.log('===========================================');
-    console.log('longtokens', data.longTokens);
-    console.log('shorttokens', data.shortTokens);
-    console.log('history', data.history);
+    // console.log('===========================================');
+    // console.log('===========================================');
+    // console.log('longtokens', data.longTokens);
+    // console.log('shorttokens', data.shortTokens);
+    // console.log('history', data.history);
     token1min = data;
 }
 
