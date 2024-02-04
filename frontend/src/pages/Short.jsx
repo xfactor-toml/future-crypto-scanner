@@ -7,6 +7,7 @@ var socket = io.connect(`${window.location.hostname}:4000`);
 
 function Short() {
   const [data, setData] = useState([]);
+  var cnt = 0;
   const [requestFlag, setRequestFlag] = useState(false);
   var hasBtc = binanceCryptoIcons.has('');
   var btcIcon = binanceCryptoIcons.get('');
@@ -51,7 +52,7 @@ function Short() {
                 <li className="text-center text-slate-400">No</li>
                 <li className="text-slate-400">Pairs</li>
                 <li className="text-center text-slate-400">Price</li>
-                <li className="text-center text-slate-400">Last 3min</li>
+                <li className="text-center text-slate-400">Change</li>
                 <li className="text-center text-slate-400">1h high</li>
                 <li className="text-center text-slate-400">1h low</li>
                 <li className="text-center text-slate-400">Open</li>
@@ -65,23 +66,25 @@ function Short() {
           <div className="mx-auto  py-2 grid grid-cols-1 gap-0 lg:grid-cols-1">
             <div className="">
               {
-                data.length? data.map((item, index) => {
-                  var unKnown = item.symbol.slice(0, -4).toLowerCase();
+                Object.keys(data).length? Object.keys(data).map((keyName) => {
+                  cnt++;
+                  const cryptoItem = data[keyName];
+                  var unKnown = keyName.slice(0, -4).toLowerCase();
                   hasBtc = binanceCryptoIcons.has(unKnown);
                   btcIcon = binanceCryptoIcons.get(unKnown);
                     return (
-                      <ul key={index} className="grid grid-cols-7 gap-x-3">
-                        <li className="text-center text-slate-300">#{index+1}</li>
+                      <ul key={keyName} className="grid grid-cols-7 gap-x-3">
+                        <li className="text-center text-slate-300">#{cnt}</li>
                         <li className=" text-[16px] flex flex-col md:flex-row items-center text-slate-300">
                           {
                             hasBtc? <span dangerouslySetInnerHTML={{__html: btcIcon.replace('"32"', '"24"')}} />:
                                     <span dangerouslySetInnerHTML={{__html: default_btcIcon.replace('"32"', '"24"')}} />
-                          }{item.symbol}
+                          }{keyName}
                         </li>
-                        <li className="text-center text-slate-300">{Number(item.closePrice).toFixed(4)}</li>
-                        <li className="text-center font-semibold text-red-500">{Number(item.change).toFixed(4)} %</li>
-                        <li className="text-center text-slate-300">{Number(item.high).toFixed(4)}</li>
-                        <li className="text-center text-slate-300">{Number(item.low).toFixed(4)}</li>
+                        <li className="text-center text-slate-300">{Number(cryptoItem.closePrice).toFixed(4)}</li>
+                        <li className="text-center font-semibold text-red-500">{Number(cryptoItem.change).toFixed(4)} %</li>
+                        <li className="text-center text-slate-300">{Number(cryptoItem.high).toFixed(4)}</li>
+                        <li className="text-center text-slate-300">{Number(cryptoItem.low).toFixed(4)}</li>
                         <li className="text-center font-semibold text-red-500">short</li>
                       </ul>
                     )
