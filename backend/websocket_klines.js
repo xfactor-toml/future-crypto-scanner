@@ -20,7 +20,7 @@ exports.getRealTimeData =async (getData) => {
     const websocketThread = () => {
       //---------------------------------------------if data is confirm to test condition, push it.-----------------------------------------//
       const testData = async ( data ) => {
-        if( Math.abs( changePercent( data.openPrice, data.closePrice ) ) >= 0.5 ) {
+        if( Math.abs( changePercent( data.openPrice, data.closePrice ) ) >= 1.5 ) {
           const kline1d = await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${data.symbol}&interval=1d&limit=1`)      //    a day kline
           if( Number(kline1d?.data[0][7]) >= 1000000 ) {
             const kline1h = await axios.get(`https://fapi.binance.com/fapi/v1/klines?symbol=${data.symbol}&interval=1h&limit=1`);   //    a hour kline
