@@ -44,24 +44,23 @@ function History(history) {
             <div className="h-[100%] mx-auto py-2 grid grid-cols-1 gap-0 lg:grid-cols-1">
               <div className="">
                 {
-                  Object.keys(history_data).length ? Object.keys(history_data).map((keyName) => {
+                  history_data.length ? history_data.map((item, index) => {
                     cnt++;
-                    const cryptoItem = history_data[keyName];
-                    var unKnown = keyName.slice(0, -4).toLowerCase();
+                    var unKnown = item.symbol.slice(0, -4).toLowerCase();
                     hasBtc = binanceCryptoIcons.has(unKnown);
                     btcIcon = binanceCryptoIcons.get(unKnown);
                     
-                    return (<ul key={keyName} className="grid grid-cols-5 gap-x-3 mb-[5px]">
+                    return (<ul key={index} className="grid grid-cols-5 gap-x-3 mb-[5px]">
                       <li className="text-center text-slate-300 ">#{cnt}</li>
                       <li className="text-center sm:ml-[20%] text-[16px] flex flex-col md:flex-row  text-slate-300 uppercase">
                         {
                           hasBtc ? <span dangerouslySetInnerHTML={{ __html: btcIcon.replace('"32"', '"24"') }} /> :
                             <span dangerouslySetInnerHTML={{ __html: default_btcIcon.replace('"32"', '"24"') }} />
-                        }{keyName}
+                        }{item.symbol}
                       </li>
-                      <li className="text-center text-slate-400">{cryptoItem.reverse().map((item, index) => <ul key={index}><li>{item.openTime}</li></ul>)}</li>
-                      <li className="text-center text-slate-400">{cryptoItem.reverse().map((item, index) => <ul key={index}><li key={index}>{item.closeTime}</li></ul> )}</li>
-                      <li className="text-center text-slate-300">{cryptoItem.reverse().map((item, index) => <ul key={index}>{Number(item.change) > 0 ?<li key={index} className='text-emerald-500'>{Number(item.change).toFixed(4)}</li>:<li key={index} className='text-red-500'>{Number(item.change).toFixed(4)}</li>}</ul>)}</li>
+                      <li className="text-center text-slate-400">{item.openTime}</li>
+                      <li className="text-center text-slate-400">{item.closeTime}</li>
+                      {Number(item.change) > 0 ? <li className="text-center text-slate-300">{Number(item.change).toFixed(4)}</li>:<li className="text-center text-red-500">{Number(item.change).toFixed(4)}</li>}
                     </ul>)
                   }
                   ) : <h1 className="text-center text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">No Matching Data  😭</h1>
