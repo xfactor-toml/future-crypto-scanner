@@ -31,21 +31,43 @@ function App() {
     document.querySelector('html').style.scrollBehavior = ''
   }, [location.pathname]); // triggered on route change
 
+  // const startWebsocket = () => {
+  //   socket.on('token1min',(data) =>{
+  //     if(data.status == "ok"){
+  //       if(data.longTokens){
+  //         setTemp_1(data.longTokens);
+  //       }else{
+  //           setTemp_1([]);
+  //       }
+  //       if(data.shortTokens){
+  //           setTemp_2(data.shortTokens);
+  //         }
+  //         else{
+  //           setTemp_2([]);
+  //         }
+  //       setHistory([...temp_1,...temp_2]);
+  //     }else{
+  //       console.log('status : error');
+  //     }
+  //   })
+  //   socket.onclose = () => {
+  //     socket = null;
+  //     setTimeout(startWebsocket, 5000);
+  //   };
+  //   socket.onerror = (error) => {
+  //     socket = null;
+  //     setTimeout(startWebsocket, 1000);
+  //   };
+  // }
+  // startWebsocket();
   const startWebsocket = () => {
     socket.on('token1min',(data) =>{
       if(data.status == "ok"){
-        if(data.longTokens){
-          setTemp_1(data.longTokens);
+        if(data.history){
+          setHistory(data.history);
         }else{
-            setTemp_1([]);
+          setHistory({});
         }
-        if(data.shortTokens){
-            setTemp_2(data.shortTokens);
-          }
-          else{
-            setTemp_2([]);
-          }
-        setHistory([...temp_1,...temp_2]);
       }else{
         console.log('status : error');
       }
@@ -60,7 +82,6 @@ function App() {
     };
   }
   startWebsocket();
-
   return (
     <>
       <Routes>
